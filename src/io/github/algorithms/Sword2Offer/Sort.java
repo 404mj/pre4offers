@@ -2,6 +2,8 @@ package io.github.algorithms.Sword2Offer;
 
 import io.github.algorithms.ds.ListNode;
 
+import java.util.Arrays;
+
 public class Sort {
     /**
      * --------------快速排序----------------
@@ -12,18 +14,22 @@ public class Sort {
 
     public static void main(String[] args) {
 //        int[] input = {10, 35, 2, 12, 5, 9, 21, 40, 74, 8};
-        int[] input = {5, 1, 6, 7, 9, 3};
+//        int[] input = {5, 1, 6, 7, 9, 3};
+//        int[] input = {1, 2, 1, 5, 0, 2, 7, 4};
+        int[] input = {4, 11, 17, 231, 56, 9, 43};
 
         //使用排序方法
         Sort s = new Sort();
 //        s.mergeSort(input, 0, input.length -1);
-//        s.headSort(input);
+//        s.heapSort(input);
 //        s.bubbleSort(input);
 //        s.selectionSort(input);
 //        s.quickSort(input, 0, input.length - 1);
 //        for (int i : input) {
 //            System.out.print(i + "   ");
 //        }
+//        s.countingSort(input);
+        s.radixSort(input);
         System.out.println();
     }
 
@@ -147,7 +153,7 @@ public class Sort {
      *
      * @param input
      */
-    public void headSort(int[] input) {
+    public void heapSort(int[] input) {
         //堆其实就是完全二叉树-建堆，--调整
         //自下而上调整
         for (int i = input.length / 2; i >= 0; i--) {
@@ -218,6 +224,14 @@ public class Sort {
         }
     }
 
+
+    /**
+     * ---------------------快速排序-------------------
+     *
+     * @param input
+     * @param start
+     * @param end
+     */
     public void quickSort(int[] input, int start, int end) {
         if (start < end) {
             i = start;
@@ -238,6 +252,124 @@ public class Sort {
             quickSort(input, start, j - 1);
             quickSort(input, j + 1, end);
         }
+    }
+
+
+    /**
+     * ------------------------基数排序-------------------------
+     * reference: https://www.cnblogs.com/developerY/p/3172379.html (思路)
+     * https://www.geeksforgeeks.org/radix-sort/
+     * MSD(most significant digital)
+     * LSD(least significant digital)
+     * <p>
+     * <p>
+     * 待排序的数组R[1..n],数组中最大的数是d位数，基数为r（如基数为10，即10进制，
+     * 最大有10种可能，即最多需要10个桶来映射数组元素）
+     * 时间复杂度O(d*(n+r))
+     * 空间复杂度O(d*r)
+     * <p>
+     * ref: https://www.thecrazyprogrammer.com/2015/06/radix-sort-java-program-and-algorithm.html
+     *
+     * @param nums
+     */
+    public void radixSort(int[] nums) {
+        //check parameters....
+
+        int i, m = nums[0], n = nums.length;
+        int exp = 1;//每一位的权值!1, 10, 100, 1000,...
+        int[] tenBits = new int[10];//十进制
+
+        //get max of nums
+        for (i = 1; i < n; i++) {
+            if (nums[i] > m)
+                m = nums[i];
+        }
+
+        /**
+         * 步骤2,3 是计数排序的套路, 不使用二维数组记录,改为用一个一维数组每次都
+         * 更新一维数组来减少空间复杂度!
+         *
+         * * * bucket数组计数!
+         * * * tenBits数组记录值!
+         *
+         *从个位开始比较::
+
+         */
+        while (m / exp > 0) {
+            int[] bucket = new int[10];
+
+            //1.-----
+            for (i = 0; i < n; i++)
+                bucket[(nums[i] / exp) % 10]++;//从低位到高位取数字!
+
+            //2.-----
+            for (i = 1; i < 10; i++)
+                bucket[i] += bucket[i - 1];
+
+            //3.-----
+            for (i = n - 1; i >= 0; i--)
+                tenBits[--bucket[(nums[i] / exp) % 10]] = nums[i];
+
+            //4.-----更新数组
+            for (i = 0; i < n; i++)
+                nums[i] = tenBits[i];
+
+            exp *= 10;
+        }
+
+        Arrays.stream(nums).forEach(System.out::println);
+    }
+
+
+    /**
+     * ------------------计数排序(桶排序)-------------------------
+     * reference:  https://www.geeksforgeeks.org/counting-sort/
+     *
+     * @param nums
+     */
+    public void countingSort(int[] nums) {
+        //check parameters...
+
+        //确定数组大小
+        int m = nums[0];
+        for (int e : nums) {
+            m = Math.max(e, m);
+        }
+
+        //收集每个数字出现次数
+        int[] counter = new int[m + 1];//假设数组有0存在
+        for (int e : nums) {
+            ++counter[e];
+        }
+        /**
+         * 统计出来之后有两种方案/操作方式,
+         * 1. 直接的: 从头到尾遍历counter,>0的情况下, 有几个就输出几个,或者放到结果数组
+         *
+         * 2. 间接的: 从头到尾遍历countger, 每个元素对应的值都累积了之前所有的(其实就是每个元素在最后的排好序的结果中的最大index).
+         * 遍历nums每个元素.
+         */
+        //采用2方式
+        for (int i = 1; i < counter.length; ++i) {
+            counter[i] += counter[i - 1];
+        }
+
+        //根据counter结果设置nums排序
+        int[] res = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            res[counter[nums[i]] - 1] = nums[i];
+            --counter[nums[i]];
+        }
+
+        Arrays.stream(res).forEach(System.out::println);
+    }
+
+    /**
+     *   ------------------希尔排序-------------------------
+     *
+     * @param nums
+     */
+    public void shellSort(int[] nums) {
+
     }
 
 
