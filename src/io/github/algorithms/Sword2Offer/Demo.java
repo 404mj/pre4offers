@@ -1,11 +1,19 @@
 package io.github.algorithms.Sword2Offer;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 /**
  * Created by zsx at 18-4-22
  */
 public class Demo {
     public static void main(String[] args) {
-        Demo d = new Demo();
+//        Demo d = new Demo();
+
+        String[] cols = {"codecode", "descdesc", "2123.2323,2313.2132"};
+        String colss = Arrays.stream(cols).collect(Collectors.joining("','", "('", "')"));
+//        Arrays.stream(colss).forEach(System.out::println);
+        System.out.println(colss);
     }
 
 
