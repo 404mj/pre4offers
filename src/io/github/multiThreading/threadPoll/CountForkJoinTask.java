@@ -2,6 +2,7 @@ package io.github.multiThreading.threadPoll;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Author: fengchen.zsx
@@ -27,6 +28,11 @@ public class CountForkJoinTask extends RecursiveTask<Long> {
 
         //满足条件执行任务
         if ((last - first) <= 10) {
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             Long sum = 0L;
             for (int i = first; i < last; i++) {
                 sum += counted[i];
