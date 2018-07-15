@@ -43,7 +43,6 @@ public class ForkJoinDemo {
         ForkJoinPool forkJoinPool = new ForkJoinPool();
 
         Long res = forkJoinPool.invoke(task);
-
         do {
             System.out.printf("Main: Thread Count: %d\n", forkJoinPool.getActiveThreadCount());
             System.out.printf("Main: Thread Steal: %d\n", forkJoinPool.getStealCount());
@@ -54,7 +53,6 @@ public class ForkJoinDemo {
                 e.printStackTrace();
             }
         } while (!task.isDone());
-
         forkJoinPool.shutdown();
         System.out.println("-----DONE----" + res.toString());
     }
