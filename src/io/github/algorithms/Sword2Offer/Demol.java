@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 /**
  * Created by zsx at 18-4-22
  */
-public class Demo {
+public class Demol {
     public static void main(String[] args) {
 //        Demo d = new Demo();
 
