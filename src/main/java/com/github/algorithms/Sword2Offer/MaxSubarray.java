@@ -9,7 +9,7 @@ package com.github.algorithms.Sword2Offer;
  * 也叫 最大序列 问题!!
  * <p>
  * given the array [−3,7,−1,2,1,−5,4]
- * the contiguous subarray [4,−1,2,1] has the largest sum = 9
+ * the contiguous subarray [7,−1,2,1] has the largest sum = 9
  * https://blog.csdn.net/derrantcm/article/details/46736967
  */
 public class MaxSubarray {

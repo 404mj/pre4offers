@@ -5,7 +5,6 @@ import java.util.Arrays;
 /**
  * Created by zsx at 18-5-13 下午8:05
  * 取int数组中出现次数 n/2 的元素
- *
  */
 public class MajorityElement {
     public static void main(String[] args) {
@@ -14,6 +13,7 @@ public class MajorityElement {
 
     /**
      * O(nlgn)
+     *
      * @param nums
      */
     public void solve(int[] nums) {
@@ -36,6 +36,7 @@ public class MajorityElement {
      * https://www.programcreek.com/2014/02/leetcode-majority-element-java/
      * 就是我掌握的方法, 遍历一边, 对没一个元素,如果等于现在的, 出现次数+1, 否则-1. 等于0
      * 的时候换新的预测值
+     *
      * @param nums
      */
     public void solveBetter(int[] nums) {
@@ -45,9 +46,9 @@ public class MajorityElement {
             if (count == 0) {
                 candidate = nums[i];
                 count = 1;
-            }else if (nums[i] == candidate) {
+            } else if (nums[i] == candidate) {
                 count++;
-            }else {
+            } else {
                 count--;
             }
         }

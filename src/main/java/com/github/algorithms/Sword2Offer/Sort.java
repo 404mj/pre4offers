@@ -40,8 +40,10 @@ public class Sort {
 
         while (i <= middle && j <= end) {
             if (input[i] < input[j]) {
+                // 左边数组比右边小
                 tmp[n++] = input[i++];
             } else {
+
                 tmp[n++] = input[j++];
             }
         }

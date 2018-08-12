@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
  * 1.基于快排
  * 2.计数排序,
  * 3.堆排序
- *
+ * <p>
  * ------
  * 还有一个问题是: 最小的K个数,, 思路差不多!!
  */
@@ -49,7 +49,8 @@ public class KthInArray {
     public void solveUseHeap(int[] nums, int k) {
         //check parameters
 
-        //从大到小
+        //从大到小：大顶堆！！
+        // java comparator接口 升序：o1-o2，降序：o2-o1
         PriorityQueue<Integer> heap = new PriorityQueue<>(k, (o1, o2) -> o2 - o1);
 
         Arrays.stream(nums).forEach(e -> heap.offer(e));
@@ -82,6 +83,7 @@ public class KthInArray {
      * 快排序思路解决
      * 自己实现的.
      * 可以参考: https://aaronice.gitbooks.io/lintcode/content/data_structure/kth_largest_element.html
+     *
      * @param nums
      */
     public void solveUseQuick(int[] nums, int k) {

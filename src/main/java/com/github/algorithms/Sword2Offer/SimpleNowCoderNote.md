@@ -1,0 +1,211 @@
+### 渣记录简单的刷题记录
+
+#### 一部分作为代码写在这个package下了
+。。。
+
+#### 其余部分边看边记录代码可能有可能没有
+
+from: 牛客—剑指offer [https://www.nowcoder.com/ta/coding-interviews]
+虽然我不齿于刷题，但是实在被在线编程虐的难受！
+
+- 跳台阶，变态跳台阶
+
+归纳法，斐波那契数列
+
+- 2×1矩形填充
+
+归纳总结
+
+- 重建二叉树，给定前序和中序
+
+递归，reConstructBinaryTree(int[] pre，int st, int ed,int[] mid,int st,int ed)
+
+- 判断一个数中1的个数
+
+代码记录过，有一系列变形，核心使用异或特型！
+count+＝ n & 1; n>>1;
+
+- 求一个double的int次幂
+
+主要考验写的程序的健壮性。判断特殊情况，使用幂乘法。
+
+- 调整数组分成两部分！
+
+很经典，好多种做法。两个指针或者一个元素记录调整了多少
+
+- 链表倒数第k个元素
+
+快慢指针。
+
+- 反转双链表
+
+基本题， 递归和头插法。
+
+- 判断二叉树B是不是A的子结构。
+
+递归，比较root，比较root.left和B。。。
+
+- 二叉树镜像反转
+
+先序遍历，交换，递归处理左右。
+
+- 给定入栈序列判断出栈序列是否正确
+
+可以不去思考怎么整体的去判断，思维陷阱。直接专门针对一个问题。
+因为：我开始想法是遍历所有的出栈顺序，和给定序列匹配。
+解决思路是：每入一个元素检查一下。
+
+```java
+whil origin.peek == checkd.peek
+  pop, continue
+while origin.peek != checkd.peek
+  if origin.size <= 0
+      not match, break;
+  push origin.next
+```
+- 二叉搜索树的后序遍历序列判断
+
+都要忘记二叉搜索树的定义了，其实就是avl红黑树的基础思想，我老是和堆的完全二叉树弄混！
+定义：左孩子都小，右孩子都大。中序遍历为递增序列，后序遍历root在最后哦。
+直接根据规则判断序列即可，编程实现：
+
+- 二叉树中和为指定值的路径
+
+递归，进行先序遍历即可。
+
+- 复杂链表的复制
+
+返回结果不能是节点的简单引用(就像我想的是的)，这一个约束条件，每个新建节点的地址是不一样的，怎么保存？
+方案就是a->b->c  => a->a'->b->b'->c->c'  => a'->b'->c'
+
+> 还可以使用 hash映射，
+
+- 二叉搜索树变为双向链表(不允许创建新的节点)
+  - 就是中序遍历的非递归实现，并在遍历的时候修改前驱
+  public TreeNode ConvertBSTToBiList(TreeNode root) {
+        if(root==null)
+            return null;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = root;
+        TreeNode pre = null;// 用于保存中序遍历序列的上一节点
+        boolean isFirst = true;
+        while(p!=null||!stack.isEmpty()){
+            while(p!=null){
+                stack.push(p);
+                p = p.left;
+            }
+            p = stack.pop();
+            if(isFirst){
+                root = p;// 将中序遍历序列中的第一个节点记为root
+                pre = root;
+                isFirst = false;
+            }else{
+                pre.right = p;
+                p.left = pre;
+                pre = p;
+            }      
+            p = p.right;
+        }
+        return root;
+    }
+
+递归方案： 将左子树变成链表，作为root的前驱，再将右子树变成链表。
+
+- 数组中只出现一次的数字
+
+使用异或！pre4offers
+
+- 判断是不是平衡二叉树：
+
+求root节点左右子树的深度即可，if (node == null) return 0  return 1+ Math.max(deepth(node.left),deepth(node.right))
+
+可以优化：进行剪枝？
+
+- 树的深度
+
+基本。
+
+- 数字在排序数组中出现的次数
+
+看见有序，肯定二分查找！找到两个位置相减即可！怎样得到两个位置？firstIndex和lastIndex返回判断mid的条件不同！
+
+> 另外一种方案：因为都是整数，二分查找k-0.5 和 k+0.5的位置。
+
+- 两个链表的第一个公共节点(交叉节点)
+
+先依次找到两个链表的长度！然后一起走！
+
+- 数组中的逆序对
+
+暴力是n^2， 使用归并排序的思想！代码记录过，没有学会！
+
+- 第一个只出现第一次的字符
+
+暴力思路通过！使用LinkedHashMap既记录出现次数，又保持插入顺序！找到字符之后因为要返回index，使用strig.indexOf()即可！
+
+- 丑数！
+
+质因数只有2，3，5的。所以 1-2-3-4-5-6-8-9-10-15....
+```java
+public int GetUglyNumber_Solution2(int n)
+    {
+        if(n<=0)return 0;
+        ArrayList<Integer> list=new ArrayList<Integer>();
+        list.add(1);
+        int i2=0,i3=0,i5=0;
+        while(list.size()<n)//循环的条件
+        {
+            int m2=list.get(i2)*2;
+            int m3=list.get(i3)*3;
+            int m5=list.get(i5)*5;
+            int min=Math.min(m2,Math.min(m3,m5));
+            list.add(min);
+            if(min==m2)i2++;
+            if(min==m3)i3++;
+            if(min==m5)i5++;
+        }
+        return list.get(list.size()-1);
+    }
+```
+
+- 把数组排成值最小的数
+
+这个题，代码里也记录过！排序！排序规则是关键！“3” 和 “32” 因为323 < 332 所以两者的顺序是：32 - 3！
+我的代码片段如下：
+```java
+List<Integer> numList = Arrays.stream(nums).boxed().collect(Collectors.toList());
+        Collections.sort(numList, (e1, e2) -> {
+            String s1 = e1 + "" + e2;
+            String s2 = e2 + "" + e1;
+            return s1.compareTo(s2);
+        });
+String sb = numList.stream().map(String::valueOf).collect(Collectors.joining());
+```
+
+- 100-1300整数中包含1的个数！（1-13中有1，10，11，12，13共5个）
+
+判断每个整数权值点：1，10，100，1000.分出高位和低位。不太理解？
+[https://www.nowcoder.com/questionTerminal/bd7f978302044eee894445e244c7eee6]
+
+- 连续子数组和
+
+代码之前记录过！我也被考过！MaxSubarray.java, 动态规划入门
+
+- 最小的K个数
+
+代码记录过类似的题目，KthInArray.java。
+使用java中的priorityqueeu，维护一个大顶堆！当堆的大小为k时，判断要放的值和堆顶最大元素的大小。如果
+堆顶元素大，就poll出来。这样会导致大元素流失！
+
+其实使用冒泡排序也是可以的！
+
+- 数组中出现次数超过一半的数字！
+
+代码记录过！也记录了一些变形题目！MajorityElement*.java!!!
+
+- 字符串全排列！
+
+代码记录过！Permutation.java!!!递归！
+
+- 
+
