@@ -7,7 +7,7 @@ import java.util.Stack;
 /**
  * Created by zsx at 18-4-23
  * <p>
- * S形遍历二叉树 || zigzag形遍历
+ * S形遍历二叉树 || zigzag形遍历 || 之字形遍历！
  * 使用两个栈实现
  */
 public class SpiralTraverse {
