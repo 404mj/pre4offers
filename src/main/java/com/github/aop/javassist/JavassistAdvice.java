@@ -47,6 +47,11 @@ public class JavassistAdvice implements Translator {
         }
     }
 
+    /**
+     * 这里main必须！
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         JavassistProxied proxied = new JavassistProxied();
         proxied.doRight();
