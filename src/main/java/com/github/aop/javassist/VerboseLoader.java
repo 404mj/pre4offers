@@ -31,6 +31,13 @@ public class VerboseLoader extends URLClassLoader {
      * <p>
      * 在这个例子中，运行后发现只有Run是由目前这个VerboseLoader加载的。Run使用的Object，Throwable，String等都由loadClass()方法调用的时候委托
      * 给父Loader执行了。只有当父类加载不到，才会调用当前的findClass()方法， 实际也是这样的，findClass植被调用了一次！加载了Run。
+     *
+     * 按照JVM类加载器的架构，我们的VerboseLoader的位置是这样的：
+     *  Bootstrap
+     *       |
+     *    System
+     *  /          \
+     *Application  VerboseLoader
      */
     protected Class findClass(String name)
             throws ClassNotFoundException {

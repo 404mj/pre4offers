@@ -352,10 +352,63 @@ Pattern先结束匹配失败，都结束成功，str先结束有可能成功。
 
 - 滑动窗口内的最大值！给定滑动窗口大小和数组，计算窗口内最大值！
 
+一开始把题理解错了以为是窗口内和的最大值。
+
+其实是每个窗口内都计算一次元素的最大值。我的思路是n个元素，m大的窗口，一共n-m+1个窗口，遍历窗口求最大即可。
+
+其他思路，使用m大的双端队列：解决问题注意算法思想和数据结构的使用！每次入队列考虑队列大小和peek元素与当前元素大小。
+
+(Java队列接口由linkedlist，arrayqueue，等实现)
 
 - 矩阵中的路径
 
-- 
+我的思路: 感觉是DFS问题，递归的深度遍历，hasPath(curStr, matchStr, String[][] matrix),先找到二维矩阵中的作为matchStr的开头，然后DFS。
+其实可以在遍历判断的时候加条件，不要在遍历一遍了。还要记录访问过的字符不能第二次使用。
+
+我的思路在讨论中的代码中体现出来了。
+
+```java
+ public boolean hasPath(char[] matrix, int rows, int cols, char[] str){
+        boolean[] visited = new boolean[matrix.length];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (searchFromHere(matrix,rows,cols,i,j,0,str,visited))
+                    return true;
+            }
+        }
+        return false;
+    }
+    public boolean searchFromHere(char[] matrix,int rows,int cols,int r,int c,int index,char[] str,boolean[] visited){
+        if (r < 0 || r >= rows || c < 0 || c >= cols ||
+            matrix[r * cols + c] != str[index] || 
+            visited[r * cols + c])
+            return false;
+        
+        if (index == str.length - 1)    return true;
+        visited[r * cols + c] = true;
+        if (searchFromHere(matrix,rows,cols,r - 1,c,index + 1,str,visited) ||
+                searchFromHere(matrix,rows,cols,r,c -1,index + 1,str,visited) ||
+                searchFromHere(matrix,rows,cols,r + 1,c,index + 1,str,visited) ||
+                searchFromHere(matrix,rows,cols,r,c + 1,index + 1,str,visited))
+            return true;
+        visited[r * cols + c] = false;
+        return false;
+    }
+```
+
+- 机器人的运动范围
+m行n列的矩阵，机器人只能上下左右移动，不能进入的限制：各自数字各位相加大于K！求机器人能到达的格子数量！
+
+和上一个题一样！只不过判断条件要再加一个计算数字各位和的辅助函数：
+```java
+    int sum = 0;
+    while(num != 0) {
+        sum += num % 10;
+        num = num / 10;
+    }
+```
+
+
 
 
 

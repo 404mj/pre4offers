@@ -50,6 +50,10 @@ public class Demo {
         System.out.println(sb);
         */
 
+        /* 二维数组大小
+        int[][] matrix = new int[3][4];
+        System.out.println(matrix.length * matrix[0].length);
+        */
 
 
 
