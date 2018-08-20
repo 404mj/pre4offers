@@ -31,13 +31,14 @@ public class VerboseLoader extends URLClassLoader {
      * <p>
      * 在这个例子中，运行后发现只有Run是由目前这个VerboseLoader加载的。Run使用的Object，Throwable，String等都由loadClass()方法调用的时候委托
      * 给父Loader执行了。只有当父类加载不到，才会调用当前的findClass()方法， 实际也是这样的，findClass植被调用了一次！加载了Run。
-     *
+     * <p>
      * 按照JVM类加载器的架构，我们的VerboseLoader的位置是这样的：
-     *  Bootstrap
-     *       |
-     *    System
-     *  /          \
-     *Application  VerboseLoader
+     * Bootstrap
+     * |
+     * System
+     * /          \
+     * Application  VerboseLoader
+     * 他取代了app loader的作用，代替他来加载用户类。
      */
     protected Class findClass(String name)
             throws ClassNotFoundException {
@@ -70,13 +71,17 @@ public class VerboseLoader extends URLClassLoader {
                 VerboseLoader loader = new VerboseLoader(urls, sysLoader.getParent());
                 Class runClass = loader.loadClass(args[0]);
 
+                /**
+                 * NOTE：注意这行！设置ContextClassLoader，才实现了上面说的让VerboseLoader加载Run！！
+                 */
+                Thread.currentThread().setContextClassLoader(loader);
+
                 // invoke "main" method of target class
                 Class[] argClass = new Class[]{args.getClass()};
                 Method main = runClass.getDeclaredMethod("main", argClass);
 
                 String[] argVals = new String[args.length - 1];
                 System.arraycopy(args, 1, argVals, 0, argVals.length);
-                Thread.currentThread().setContextClassLoader(loader);
 
                 main.invoke(null, new Object[]{argVals});
 
