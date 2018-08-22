@@ -1,9 +1,8 @@
-package com.github.clazzloader;
+package com.github.clazzloader.wiki;
 
 import java.io.File;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Author: fengchen.zsx
@@ -18,11 +17,11 @@ public class Main {
         javaLoaded.jl();
 
         // Class.forName
-        Class<?> classForName = Class.forName("com.github.clazzloader.ClassForName");
+        Class<?> classForName = Class.forName("com.github.clazzloader.wiki.ClassForName");
         classForName.getMethod("cm", new Class[]{}).invoke(classForName.newInstance(), new Object[]{});
 
         // ClassLoader.loadClass
-        Class<?> loadClass = Main.class.getClassLoader().loadClass("com.github.clazzloader.LoadClass");
+        Class<?> loadClass = Main.class.getClassLoader().loadClass("com.github.clazzloader.wiki.LoadClass");
         loadClass.getMethod("lm", new Class[]{}).invoke(loadClass.newInstance(), new Object[]{});
     }
 
@@ -34,26 +33,26 @@ public class Main {
                 "/Users/zsx/worksapce/pre4offers/out/artifacts/pre4offers-1.0-SNAPSHOT.jar").toURI().toURL()});
         j2.setName("2#");
 
-        j1.injectClass("com.github.clazzloader.JavaLoaded", j2.loadClass("com.github.clazzloader.JavaLoaded"));
-        j1.injectClass("com.github.clazzloader.ClassForName", j2.loadClass("com.github.clazzloader.ClassForName"));
-        j1.injectClass("com.github.clazzloader.LoadClass", j2.loadClass("com.github.clazzloader.LoadClass"));
+        j1.injectClass("com.github.clazzloader.wiki.JavaLoaded", j2.loadClass("com.github.clazzloader.wiki.JavaLoaded"));
+        j1.injectClass("com.github.clazzloader.wiki.ClassForName", j2.loadClass("com.github.clazzloader.wiki.ClassForName"));
+        j1.injectClass("com.github.clazzloader.wiki.LoadClass", j2.loadClass("com.github.clazzloader.wiki.LoadClass"));
 
-        Class<?> a1 = j1.loadClass("com.github.clazzloader.Main");
+        Class<?> a1 = j1.loadClass("com.github.clazzloader.wiki.Main");
 
         Method aM = a1.getMethod("m", new Class<?>[]{});
         aM.invoke(a1.newInstance(), new Object[]{});
 
         System.out.println("1# findLoaded.");
 
-        System.out.println(j1.findLoadedClass1("com.github.clazzloader.JavaLoaded")); // √
-        System.out.println(j1.findLoadedClass1("com.github.clazzloader.ClassForName")); // √
-        System.out.println(j1.findLoadedClass1("com.github.clazzloader.LoadClass")); // x
+        System.out.println(j1.findLoadedClass1("com.github.clazzloader.wiki.JavaLoaded")); // √
+        System.out.println(j1.findLoadedClass1("com.github.clazzloader.wiki.ClassForName")); // √
+        System.out.println(j1.findLoadedClass1("com.github.clazzloader.wiki.LoadClass")); // x
 
         System.out.println("2# findLoaded.");
 
-        System.out.println(j2.findLoadedClass1("com.github.clazzloader.JavaLoaded")); // √
-        System.out.println(j2.findLoadedClass1("com.github.clazzloader.ClassForName")); // √
-        System.out.println(j2.findLoadedClass1("com.github.clazzloader.LoadClass")); // √
+        System.out.println(j2.findLoadedClass1("com.github.clazzloader.wiki.JavaLoaded")); // √
+        System.out.println(j2.findLoadedClass1("com.github.clazzloader.wiki.ClassForName")); // √
+        System.out.println(j2.findLoadedClass1("com.github.clazzloader.wiki.LoadClass")); // √
     }
 
     public static void main(String[] args) {

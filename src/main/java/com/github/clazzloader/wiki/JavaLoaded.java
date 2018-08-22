@@ -1,4 +1,4 @@
-package com.github.clazzloader;
+package com.github.clazzloader.wiki;
 
 /**
  * Author: fengchen.zsx
