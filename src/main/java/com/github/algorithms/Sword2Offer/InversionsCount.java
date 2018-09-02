@@ -15,6 +15,13 @@ package com.github.algorithms.Sword2Offer;
  * ------update2018-09-02-----
  * 线段树思路：http://www.ahathinking.com/archives/135.html
  * https://www.cnblogs.com/zhenglw/p/9507884.html
+ * <p>
+ * -------update2018-09-02 21:36---------
+ * 没想到一个简单的题目这么复杂 ：
+ * * https://www.luogu.org/problemnew/solution/P1908  使用桶排序，但是由于数量巨大，先进行离散化！！！-->也就是保存每个数是第几大！
+ * <p>
+ * 然后建立一个线段树！
+ * https://blog.csdn.net/accepthjp/article/details/52301426 LeetCode出题难度频率汇总
  */
 public class InversionsCount {
     int count = 0;
