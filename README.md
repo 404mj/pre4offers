@@ -10,7 +10,13 @@ main topic is java programing and datastructure and algorithms.
 
 - algorithms
 
-- basci ds
+- basic
 
-- multi thread
+- aop
+
+- classloader
+
+- multithreading
+
+- oj
 
