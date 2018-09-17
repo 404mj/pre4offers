@@ -10,7 +10,7 @@ import java.net.URL;
  */
 public class Main {
     public void m() throws Exception {
-        System.out.println(this.getClass().getClassLoader() + " loaded Main");
+        System.out.println(this.getClass().getClassLoader() + " loaded BracketsMatch");
 
         // Java loaded
         JavaLoaded javaLoaded = new JavaLoaded();

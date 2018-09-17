@@ -44,9 +44,9 @@ public class ForkJoinDemo {
 
         Long res = forkJoinPool.invoke(task);
         do {
-            System.out.printf("Main: Thread Count: %d\n", forkJoinPool.getActiveThreadCount());
-            System.out.printf("Main: Thread Steal: %d\n", forkJoinPool.getStealCount());
-            System.out.printf("Main: Parallelism: %d\n", forkJoinPool.getParallelism());
+            System.out.printf("BracketsMatch: Thread Count: %d\n", forkJoinPool.getActiveThreadCount());
+            System.out.printf("BracketsMatch: Thread Steal: %d\n", forkJoinPool.getStealCount());
+            System.out.printf("BracketsMatch: Parallelism: %d\n", forkJoinPool.getParallelism());
             try {
                 TimeUnit.MILLISECONDS.sleep(50);
             } catch (InterruptedException e) {
