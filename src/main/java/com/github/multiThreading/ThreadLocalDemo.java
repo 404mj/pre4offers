@@ -7,18 +7,18 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadLocalDemo {
 
-//    volatile static Person  p = new Person("zhangSan");
+    volatile static Person  p = new Person("zhangSan");
 
     static ThreadLocal<Person> tlp = new ThreadLocal<>();
 
     public static void main(String[] args) {
         new Thread(() -> {
             try {
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(3);
             }catch (InterruptedException e) {
                 e.printStackTrace();
             }
-//            System.out.println(p.getName());
+            System.out.println(p.getName());
             System.out.println(tlp.get());
         }).start();
 
