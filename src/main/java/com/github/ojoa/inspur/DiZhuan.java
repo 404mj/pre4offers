@@ -1,4 +1,4 @@
-package com.github.oj.inspur;
+package com.github.ojoa.inspur;
 
 import java.util.Scanner;
 

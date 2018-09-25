@@ -1,4 +1,4 @@
-package com.github.oj.netease;
+package com.github.ojoa.netease;
 
 import java.util.Arrays;
 import java.util.Scanner;

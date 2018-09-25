@@ -1,4 +1,4 @@
-package com.github.oj.zhihu;
+package com.github.ojoa.zhihu;
 
 /**
  * Created by fengchen.zsx

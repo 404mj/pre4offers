@@ -1,4 +1,4 @@
-package com.github.oj.tecent;
+package com.github.ojoa.tecent;
 
 /**
  * Author: fengchen.zsx

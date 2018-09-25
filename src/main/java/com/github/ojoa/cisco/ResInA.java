@@ -1,4 +1,4 @@
-package com.github.oj.cisco;
+package com.github.ojoa.cisco;
 
 /**
  * Created by fengchen.zsx

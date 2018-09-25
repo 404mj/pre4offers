@@ -1,4 +1,4 @@
-package com.github.oj.zhihu;
+package com.github.ojoa.zhihu;
 
 import java.util.Scanner;
 import java.util.Stack;
